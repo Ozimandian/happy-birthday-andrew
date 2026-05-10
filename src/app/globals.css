@@ -1,0 +1,2319 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* Fallout Green Theme Colors */
+  --color-fallout-green: #14FE17;
+  --color-fallout-dark-green: #0B8C0D;
+  --color-fallout-dim-green: #0A5C0C;
+  --color-fallout-amber: #F1AC43;
+  --color-fallout-dark: #0A0A0A;
+  --color-fallout-darker: #050505;
+  --color-fallout-terminal: #0D1A0D;
+  --color-fallout-border: #14FE1750;
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: #050505;
+  --foreground: #14FE17;
+  --card: #0A0A0A;
+  --card-foreground: #14FE17;
+  --popover: #0A0A0A;
+  --popover-foreground: #14FE17;
+  --primary: #14FE17;
+  --primary-foreground: #050505;
+  --secondary: #0D1A0D;
+  --secondary-foreground: #14FE17;
+  --muted: #0D1A0D;
+  --muted-foreground: #0B8C0D;
+  --accent: #0D1A0D;
+  --accent-foreground: #14FE17;
+  --destructive: #FF3333;
+  --border: #14FE1740;
+  --input: #14FE1730;
+  --ring: #14FE17;
+  --chart-1: #14FE17;
+  --chart-2: #0B8C0D;
+  --chart-3: #F1AC43;
+  --chart-4: #0D1A0D;
+  --chart-5: #0B8C0D;
+  --sidebar: #0A0A0A;
+  --sidebar-foreground: #14FE17;
+  --sidebar-primary: #14FE17;
+  --sidebar-primary-foreground: #050505;
+  --sidebar-accent: #0D1A0D;
+  --sidebar-accent-foreground: #14FE17;
+  --sidebar-border: #14FE1740;
+  --sidebar-ring: #14FE17;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Hexagonal background pattern */
+.hex-bg {
+  background-image:
+    linear-gradient(30deg, #14FE1703 12%, transparent 12.5%, transparent 87%, #14FE1703 87.5%),
+    linear-gradient(150deg, #14FE1703 12%, transparent 12.5%, transparent 87%, #14FE1703 87.5%),
+    linear-gradient(30deg, #14FE1703 12%, transparent 12.5%, transparent 87%, #14FE1703 87.5%),
+    linear-gradient(150deg, #14FE1703 12%, transparent 12.5%, transparent 87%, #14FE1703 87.5%),
+    linear-gradient(60deg, #14FE1705 25%, transparent 25.5%, transparent 75%, #14FE1705 75%),
+    linear-gradient(60deg, #14FE1705 25%, transparent 25.5%, transparent 75%, #14FE1705 75%);
+  background-size: 40px 70px;
+  background-position: 0 0, 0 0, 20px 35px, 20px 35px, 0 0, 20px 35px;
+}
+
+/* Custom Scrollbar - Fallout Green */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0A0A0A;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #0B8C0D;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #14FE17;
+}
+
+/* Scanline Overlay - Reduced opacity from 0.4 to 0.15 */
+.scanline-overlay {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.15) 0px,
+    rgba(0, 0, 0, 0.15) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  opacity: 0.15;
+}
+
+/* CRT Effect */
+.crt-overlay {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 60%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+}
+
+/* Vignette Effect - darker corners */
+.vignette-overlay {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9997;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 50%,
+    rgba(0, 0, 0, 0.3) 80%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+}
+
+/* Screen flicker - random brief opacity drops */
+@keyframes screen-flicker {
+  0%, 100% { opacity: 1; }
+  0.5% { opacity: 0.85; }
+  1% { opacity: 1; }
+  99.5% { opacity: 0.9; }
+}
+
+.screen-flicker {
+  animation: screen-flicker 15s step-end infinite;
+}
+
+/* Glitch animation */
+@keyframes glitch {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
+}
+
+@keyframes glitch-skew {
+  0% { transform: skew(0deg); }
+  20% { transform: skew(-1deg); }
+  40% { transform: skew(1deg); }
+  60% { transform: skew(-0.5deg); }
+  80% { transform: skew(0.5deg); }
+  100% { transform: skew(0deg); }
+}
+
+.glitch-text {
+  animation: glitch 0.3s infinite;
+}
+
+/* Terminal blink cursor */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.terminal-cursor {
+  animation: blink 1s step-end infinite;
+}
+
+/* Glow effect */
+.fallout-glow {
+  text-shadow: 0 0 5px #14FE17, 0 0 10px #14FE17, 0 0 20px #14FE17, 0 0 40px #0B8C0D;
+}
+
+.fallout-glow-subtle {
+  text-shadow: 0 0 3px #14FE17, 0 0 6px #0B8C0D;
+}
+
+.fallout-box-glow {
+  box-shadow: 0 0 5px #14FE1740, 0 0 10px #14FE1720, inset 0 0 5px #14FE1710;
+}
+
+/* Enhanced pixel border style with animated gradient */
+.pixel-border {
+  border: 2px solid #14FE17;
+  box-shadow:
+    0 0 0 2px #0A0A0A,
+    0 0 0 4px #0B8C0D,
+    inset 0 0 10px rgba(20, 254, 23, 0.1);
+  position: relative;
+}
+
+/* Animated gradient border glow */
+.pixel-border::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border: 2px solid transparent;
+  background: linear-gradient(90deg, transparent, #14FE1740, transparent) border-box;
+  mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  animation: border-glow-move 3s linear infinite;
+  pointer-events: none;
+}
+
+.pixel-border-bright {
+  border: 2px solid #14FE17;
+  box-shadow:
+    0 0 0 2px #0A0A0A,
+    0 0 0 4px #14FE17,
+    0 0 10px rgba(20, 254, 23, 0.3),
+    inset 0 0 15px rgba(20, 254, 23, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Pixel border bright - no traveling light (removed per user request) */
+.pixel-border-bright::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(45deg, #14FE1710, transparent, #14FE1710);
+  pointer-events: none;
+  z-index: 1;
+  border-radius: inherit;
+}
+
+/* Corner decorations for pixel borders */
+.pixel-border-corners,
+.pixel-border-bright-corners {
+  position: relative;
+}
+
+.pixel-border-corners::after,
+.pixel-border-bright-corners::after {
+  content: '';
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 8px;
+  height: 8px;
+  border-top: 2px solid #14FE17;
+  border-right: 2px solid #14FE17;
+  pointer-events: none;
+}
+
+.pixel-border-corners::before,
+.pixel-border-bright-corners::before {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: -4px;
+  width: 8px;
+  height: 8px;
+  border-bottom: 2px solid #14FE17;
+  border-left: 2px solid #14FE17;
+  pointer-events: none;
+}
+
+@keyframes border-glow-move {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Scramble text animation */
+@keyframes scramble {
+  0% { opacity: 1; }
+  50% { opacity: 0.8; }
+  100% { opacity: 1; }
+}
+
+/* Pulse glow */
+@keyframes pulse-glow {
+  0%, 100% {
+    text-shadow: 0 0 5px #14FE17, 0 0 10px #14FE17;
+    opacity: 1;
+  }
+  50% {
+    text-shadow: 0 0 10px #14FE17, 0 0 20px #14FE17, 0 0 40px #0B8C0D;
+    opacity: 0.9;
+  }
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Boot screen typing */
+@keyframes type-in {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+/* Flicker effect */
+@keyframes flicker {
+  0% { opacity: 1; }
+  3% { opacity: 0.4; }
+  6% { opacity: 1; }
+  7% { opacity: 0.4; }
+  8% { opacity: 1; }
+  50% { opacity: 1; }
+  54% { opacity: 0.7; }
+  56% { opacity: 1; }
+  100% { opacity: 1; }
+}
+
+.flicker {
+  animation: flicker 4s infinite;
+}
+
+/* Map marker pulse */
+@keyframes marker-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(20, 254, 23, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(20, 254, 23, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(20, 254, 23, 0);
+  }
+}
+
+/* Nuclear flash */
+@keyframes nuclear-flash {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  20% { opacity: 0.3; }
+  30% { opacity: 0.8; }
+  40% { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+/* Scroll text / Ticker */
+@keyframes scroll-left {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-200%); }
+}
+
+.ticker-scroll {
+  animation: scroll-left 25s linear infinite;
+}
+
+/* Matrix rain columns */
+@keyframes matrix-fall {
+  0% { transform: translateY(-100%); opacity: 1; }
+  80% { opacity: 0.3; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+.matrix-column {
+  animation: matrix-fall var(--matrix-duration, 4s) linear infinite;
+  animation-delay: var(--matrix-delay, 0s);
+}
+
+/* Equalizer bar animation */
+@keyframes equalizer {
+  0%, 100% { height: 3px; }
+  50% { height: var(--eq-max-height, 12px); }
+}
+
+.eq-bar {
+  animation: equalizer var(--eq-speed, 0.4s) ease-in-out infinite;
+  animation-delay: var(--eq-delay, 0s);
+}
+
+/* Pip-Boy scan line moving */
+@keyframes pip-scan {
+  0% { top: 0%; }
+  100% { top: 100%; }
+}
+
+.pip-scan-line {
+  animation: pip-scan 3s linear infinite;
+}
+
+/* Static noise flicker */
+@keyframes static-noise {
+  0% { opacity: 0.03; }
+  5% { opacity: 0.06; }
+  10% { opacity: 0.02; }
+  15% { opacity: 0.05; }
+  20% { opacity: 0.03; }
+  100% { opacity: 0.03; }
+}
+
+.static-noise {
+  animation: static-noise 0.5s steps(10) infinite;
+}
+
+/* Rain effect for boot */
+@keyframes rain {
+  0% { transform: translateY(-100%); opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+/* Vault door spin */
+@keyframes vault-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Leaflet map overrides */
+.leaflet-container {
+  background: #0A0A0A !important;
+  border: 2px solid #14FE17 !important;
+}
+
+.leaflet-tile-pane {
+  filter: hue-rotate(80deg) saturate(3) brightness(0.7) contrast(1.3);
+}
+
+/* Map container with Fallout filter (avoid double-filtering) */
+.fallout-map .leaflet-tile-pane {
+  filter: hue-rotate(80deg) saturate(2.5) brightness(0.6) contrast(1.4);
+}
+
+.leaflet-control-zoom a {
+  background: #0A0A0A !important;
+  color: #14FE17 !important;
+  border-color: #14FE1740 !important;
+}
+
+.leaflet-popup-content-wrapper {
+  background: #0A0A0A !important;
+  color: #14FE17 !important;
+  border: 1px solid #14FE17 !important;
+  border-radius: 0 !important;
+}
+
+.leaflet-popup-tip {
+  background: #0A0A0A !important;
+  border: 1px solid #14FE17 !important;
+}
+
+.leaflet-control-attribution {
+  background: #0A0A0A90 !important;
+  color: #0B8C0D !important;
+  font-family: monospace !important;
+  font-size: 8px !important;
+}
+
+.leaflet-control-attribution a {
+  color: #14FE17 !important;
+}
+
+/* Hide default leaflet styles */
+.leaflet-popup-close-button {
+  color: #14FE17 !important;
+}
+
+/* Pixel corner decorations */
+.pixel-corners {
+  position: relative;
+}
+.pixel-corners::before,
+.pixel-corners::after {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border: 1px solid #14FE17;
+}
+.pixel-corners::before {
+  top: -1px;
+  left: -1px;
+  border-right: none;
+  border-bottom: none;
+}
+.pixel-corners::after {
+  bottom: -1px;
+  right: -1px;
+  border-left: none;
+  border-top: none;
+}
+
+/* S.P.E.C.I.A.L. stat bars */
+.stat-bar-fill {
+  transition: width 1s ease-out;
+}
+
+/* Glitch line */
+@keyframes glitch-line {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.glitch-line {
+  animation: glitch-line 3s linear infinite;
+}
+
+/* Glitch flicker for ЗНАЙ/ЗАБУДЬ word swap */
+@keyframes glitchFlicker {
+  0% { opacity: 1; }
+  10% { opacity: 0.8; transform: translate(0); }
+  20% { opacity: 0.4; transform: translate(-2px, 1px); }
+  30% { opacity: 1; transform: translate(1px, -1px); }
+  40% { opacity: 0.6; transform: translate(-1px, 0); }
+  50% { opacity: 1; transform: translate(0); }
+  60% { opacity: 0.3; transform: translate(2px, 1px); }
+  70% { opacity: 0.9; transform: translate(-1px, -1px); }
+  80% { opacity: 0.5; transform: translate(1px, 0); }
+  90% { opacity: 1; transform: translate(0); }
+  100% { opacity: 0.8; transform: translate(0); }
+}
+
+.glitch-text-active {
+  animation: glitchFlicker 0.15s infinite !important;
+}
+
+/* ========== NEW ANIMATIONS ========== */
+
+/* Radioactive particle float */
+@keyframes particle-float {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: var(--particle-opacity, 0.4);
+  }
+  90% {
+    opacity: var(--particle-opacity, 0.4);
+  }
+  100% {
+    transform: translateY(-100vh) translateX(var(--particle-drift, 20px));
+    opacity: 0;
+  }
+}
+
+.radioactive-particle {
+  animation: particle-float var(--particle-duration, 8s) linear infinite;
+  animation-delay: var(--particle-delay, 0s);
+}
+
+/* Age number 29 glow pulse */
+@keyframes age-glow {
+  0%, 100% {
+    text-shadow: 0 0 5px #14FE17, 0 0 10px #14FE17, 0 0 20px #14FE17;
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    text-shadow: 0 0 10px #14FE17, 0 0 20px #14FE17, 0 0 40px #0B8C0D, 0 0 60px #14FE1740;
+    transform: rotate(-2deg) scale(1.05);
+  }
+  50% {
+    text-shadow: 0 0 8px #14FE17, 0 0 15px #14FE17, 0 0 30px #0B8C0D;
+    transform: rotate(0deg) scale(1.02);
+  }
+  75% {
+    text-shadow: 0 0 10px #14FE17, 0 0 20px #14FE17, 0 0 40px #0B8C0D, 0 0 60px #14FE1740;
+    transform: rotate(2deg) scale(1.05);
+  }
+}
+
+.age-glow {
+  animation: age-glow 3s ease-in-out infinite;
+  display: inline-block;
+}
+
+/* Scan line moving across card */
+@keyframes card-scan {
+  0% {
+    top: -5%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.3;
+  }
+  90% {
+    opacity: 0.3;
+  }
+  100% {
+    top: 105%;
+    opacity: 0;
+  }
+}
+
+.card-scan-line {
+  animation: card-scan 4s linear infinite;
+}
+
+/* Vault-Tec seal rotation */
+@keyframes seal-rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.vault-seal-rotate {
+  animation: seal-rotate 60s linear infinite;
+}
+
+/* Compass needle wiggle */
+@keyframes compass-wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(5deg); }
+  50% { transform: rotate(-3deg); }
+  75% { transform: rotate(4deg); }
+}
+
+.compass-wiggle {
+  animation: compass-wiggle 2s ease-in-out infinite;
+}
+
+/* Quest marker bounce */
+@keyframes quest-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.quest-bounce {
+  animation: quest-bounce 1.5s ease-in-out infinite;
+}
+
+/* Typing indicator dots */
+@keyframes typing-dot {
+  0%, 60%, 100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  30% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+
+.typing-dot {
+  animation: typing-dot 1.4s ease-in-out infinite;
+}
+
+.typing-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+/* Quick reply chip hover */
+@keyframes chip-glow {
+  0%, 100% {
+    box-shadow: 0 0 3px #14FE1730;
+  }
+  50% {
+    box-shadow: 0 0 8px #14FE1750;
+  }
+}
+
+.chip-hover:hover {
+  animation: chip-glow 1s ease-in-out infinite;
+}
+
+/* Countdown card glow */
+@keyframes countdown-glow {
+  0%, 100% {
+    box-shadow: 0 0 5px #14FE1720, 0 0 10px #14FE1710, inset 0 0 5px #14FE1710;
+  }
+  50% {
+    box-shadow: 0 0 10px #14FE1740, 0 0 20px #14FE1720, inset 0 0 10px #14FE1720;
+  }
+}
+
+.countdown-glow {
+  animation: countdown-glow 2s ease-in-out infinite;
+}
+
+/* RSVP confirmed badge shimmer */
+@keyframes shimmer {
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.rsvp-shimmer {
+  background: linear-gradient(90deg, #0D1A0D 0%, #14FE1720 50%, #0D1A0D 100%);
+  background-size: 50% 100%;
+  animation: shimmer 3s linear infinite;
+}
+
+/* Compass spin for location page */
+@keyframes compass-spin {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(90deg); }
+  50% { transform: rotate(180deg); }
+  75% { transform: rotate(270deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ========== ENHANCEMENT ROUND 2 ANIMATIONS ========== */
+
+/* Pulsing radiation icon for countdown */
+@keyframes radiation-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+}
+
+.radiation-pulse-slow {
+  animation: radiation-pulse 3s ease-in-out infinite;
+}
+
+.radiation-pulse-medium {
+  animation: radiation-pulse 1.5s ease-in-out infinite;
+}
+
+.radiation-pulse-fast {
+  animation: radiation-pulse 0.8s ease-in-out infinite;
+}
+
+/* Flip-clock digit bounce */
+@keyframes flip-bounce {
+  0% { transform: scaleY(1); }
+  50% { transform: scaleY(0.85); }
+  100% { transform: scaleY(1); }
+}
+
+.flip-digit {
+  transition: transform 0.15s ease-out;
+}
+
+.flip-digit.changing {
+  animation: flip-bounce 0.3s ease-out;
+}
+
+/* Speech bubble fade */
+@keyframes speech-fade {
+  0% { opacity: 0; transform: translateY(4px) scale(0.95); }
+  10% { opacity: 1; transform: translateY(0) scale(1); }
+  90% { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-4px) scale(0.95); }
+}
+
+.speech-bubble-text {
+  animation: speech-fade 3s ease-in-out forwards;
+}
+
+/* Vault door wheel spin */
+@keyframes vault-wheel-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(1080deg); }
+}
+
+/* Vault door slide apart */
+@keyframes vault-door-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-110%); }
+}
+
+@keyframes vault-door-right {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(110%); }
+}
+
+/* Secret terminal cursor blink */
+@keyframes terminal-blink-block {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.terminal-blink-block {
+  animation: terminal-blink-block 0.8s step-end infinite;
+}
+
+/* Vault rules entrance */
+@keyframes rule-enter {
+  0% {
+    opacity: 0;
+    transform: translateX(-15px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Resident card stat bar */
+@keyframes stat-fill {
+  0% { width: 0%; }
+  100% { width: var(--stat-width); }
+}
+
+.resident-stat-bar {
+  animation: stat-fill 0.8s ease-out forwards;
+  animation-delay: var(--stat-delay, 0s);
+}
+
+/* Terminal text glow */
+@keyframes terminal-text-glow {
+  0%, 100% {
+    text-shadow: 0 0 2px #14FE17;
+  }
+  50% {
+    text-shadow: 0 0 5px #14FE17, 0 0 10px #0B8C0D;
+  }
+}
+
+.terminal-glow {
+  animation: terminal-text-glow 2s ease-in-out infinite;
+}
+
+/* Green glow behind timer */
+@keyframes green-glow-bg {
+  0%, 100% {
+    box-shadow: 0 0 15px #14FE1715, inset 0 0 10px #14FE1708;
+  }
+  50% {
+    box-shadow: 0 0 30px #14FE1725, inset 0 0 20px #14FE1715;
+  }
+}
+
+.timer-glow-bg {
+  animation: green-glow-bg 2s ease-in-out infinite;
+}
+
+/* ========== ENHANCEMENT ROUND 3 ANIMATIONS ========== */
+
+/* Gallery image scanline sweep */
+@keyframes gallery-scan {
+  0% {
+    top: -10%;
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  95% {
+    opacity: 1;
+  }
+  100% {
+    top: 110%;
+    opacity: 0;
+  }
+}
+
+.gallery-img-scan {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #14FE1760, transparent);
+  animation: gallery-scan 3s linear infinite;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* NEW badge pulsing glow */
+@keyframes badge-new-glow {
+  0%, 100% {
+    box-shadow: 0 0 3px #14FE1740, 0 0 6px #14FE1720;
+    text-shadow: 0 0 3px #14FE17;
+  }
+  50% {
+    box-shadow: 0 0 8px #14FE1780, 0 0 16px #14FE1740;
+    text-shadow: 0 0 8px #14FE17, 0 0 12px #0B8C0D;
+  }
+}
+
+.badge-new-glow {
+  animation: badge-new-glow 1.5s ease-in-out infinite;
+}
+
+/* Holotape slow spin */
+@keyframes holotape-spin {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(8deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(-8deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.holotape-spin {
+  animation: holotape-spin 4s ease-in-out infinite;
+  display: inline-block;
+}
+
+/* Road grid background pattern for location page */
+.road-grid-bg {
+  background-image:
+    linear-gradient(90deg, #14FE1704 1px, transparent 1px),
+    linear-gradient(180deg, #14FE1704 1px, transparent 1px),
+    linear-gradient(45deg, #14FE1703 2px, transparent 2px);
+  background-size: 40px 40px, 40px 40px, 80px 80px;
+}
+
+/* Pulsing dot for invitation status */
+@keyframes status-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.8);
+    opacity: 0.4;
+  }
+}
+
+.status-pulse-dot {
+  animation: status-pulse 2s ease-in-out infinite;
+}
+
+/* ========== ENHANCEMENT ROUND 4 ANIMATIONS ========== */
+
+/* Perk card selected glow */
+@keyframes perk-glow {
+  0%, 100% {
+    box-shadow: 0 0 5px #14FE1740, 0 0 10px #14FE1720, inset 0 0 5px #14FE1710;
+  }
+  50% {
+    box-shadow: 0 0 10px #14FE1780, 0 0 20px #14FE1740, 0 0 30px #14FE1720, inset 0 0 10px #14FE1720;
+  }
+}
+
+.perk-selected {
+  animation: perk-glow 1.5s ease-in-out infinite;
+  border-color: #14FE17 !important;
+}
+
+/* Perk card staggered slide-in */
+@keyframes perk-slide-in {
+  0% {
+    opacity: 0;
+    transform: translateY(15px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Random event toast slide up */
+@keyframes toast-slide-up {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Random event toast slide down exit */
+@keyframes toast-slide-down {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+.event-toast-enter {
+  animation: toast-slide-up 0.4s ease-out forwards;
+}
+
+.event-toast-exit {
+  animation: toast-slide-down 0.4s ease-in forwards;
+}
+
+/* Pulsing glow rings for encrypted screen */
+@keyframes glow-ring-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* Terminal divider traveling light */
+@keyframes divider-travel {
+  0% {
+    left: -10%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    left: 110%;
+    opacity: 0;
+  }
+}
+
+.divider-traveling-light {
+  /* Traveling light removed per user request */
+}
+
+/* Terminal divider icon pulse */
+@keyframes divider-icon-pulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+
+.divider-icon-pulse {
+  animation: divider-icon-pulse 2s ease-in-out infinite;
+}
+
+/* Chat terminal static noise background */
+@keyframes terminal-static {
+  0% { background-position: 0 0; }
+  100% { background-position: 100% 100%; }
+}
+
+.chat-static-bg {
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      #14FE1703 2px,
+      #14FE1703 3px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 3px,
+      #14FE1702 3px,
+      #14FE1702 4px
+    );
+  background-size: 4px 4px;
+  animation: terminal-static 0.5s steps(5) infinite;
+}
+
+/* Chat message flash on new message */
+@keyframes msg-flash {
+  0% {
+    border-color: #14FE17;
+    box-shadow: 0 0 8px #14FE1740, inset 0 0 4px #14FE1720;
+  }
+  100% {
+    border-color: #14FE1720;
+    box-shadow: none;
+  }
+}
+
+.msg-flash {
+  animation: msg-flash 1.5s ease-out forwards;
+}
+
+/* Chat blinking cursor prefix */
+@keyframes cursor-blink-prefix {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.chat-cursor-prefix {
+  animation: cursor-blink-prefix 1s step-end infinite;
+}
+
+/* Floating radiation icons for desktop */
+@keyframes float-rotate {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-15px) rotate(90deg);
+  }
+  50% {
+    transform: translateY(0px) rotate(180deg);
+  }
+  75% {
+    transform: translateY(-10px) rotate(270deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(360deg);
+  }
+}
+
+.float-rotate-slow {
+  animation: float-rotate 20s ease-in-out infinite;
+}
+
+/* Parallax nuclear blast desktop */
+@keyframes subtle-parallax {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* ========== ENHANCEMENT ROUND 5 ANIMATIONS ========== */
+
+/* Chat markdown styling */
+.chat-markdown {
+  font-family: monospace;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.chat-markdown p {
+  margin: 0 0 4px 0;
+}
+
+.chat-markdown p:last-child {
+  margin-bottom: 0;
+}
+
+.chat-markdown strong {
+  color: #14FE17;
+  text-shadow: 0 0 4px #14FE1740;
+  font-weight: bold;
+}
+
+.chat-markdown em {
+  color: #0B8C0D;
+  font-style: italic;
+}
+
+.chat-markdown ul, .chat-markdown ol {
+  margin: 4px 0;
+  padding-left: 16px;
+}
+
+.chat-markdown li {
+  margin: 2px 0;
+}
+
+.chat-markdown code {
+  color: #F1AC43;
+  font-family: monospace;
+  font-size: 0.9em;
+  background: #0D1A0D;
+  padding: 1px 3px;
+  border: 1px solid #14FE1720;
+}
+
+.chat-markdown pre {
+  background: #0D1A0D;
+  border: 1px solid #14FE1740;
+  padding: 6px;
+  margin: 4px 0;
+  overflow-x: auto;
+  font-size: 0.85em;
+}
+
+.chat-markdown pre code {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.chat-markdown blockquote {
+  border-left: 2px solid #14FE1740;
+  padding-left: 8px;
+  margin: 4px 0;
+  opacity: 0.8;
+}
+
+/* Achievement popup animation */
+@keyframes achievement-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-5px) scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.achievement-pop {
+  animation: achievement-pop 0.6s ease-out forwards;
+}
+
+@keyframes achievement-shine {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.achievement-shine {
+  background: linear-gradient(90deg, transparent 0%, #14FE1730 50%, transparent 100%);
+  background-size: 50% 100%;
+  animation: achievement-shine 2s ease-in-out infinite;
+}
+
+/* Hacking minigame glow */
+@keyframes hack-pulse {
+  0%, 100% {
+    text-shadow: 0 0 3px #14FE17;
+  }
+  50% {
+    text-shadow: 0 0 8px #14FE17, 0 0 15px #0B8C0D;
+  }
+}
+
+.hack-pulse {
+  animation: hack-pulse 1.5s ease-in-out infinite;
+}
+
+/* Hacking minigame cursor */
+@keyframes hack-cursor-blink {
+  0%, 100% { background: #14FE17; }
+  50% { background: transparent; }
+}
+
+.hack-cursor {
+  animation: hack-cursor-blink 0.5s step-end infinite;
+}
+
+/* Nuka-Cola bottle cap spin */
+@keyframes cap-spin {
+  0% { transform: rotateY(0deg); }
+  100% { transform: rotateY(360deg); }
+}
+
+.cap-spin {
+  animation: cap-spin 4s linear infinite;
+  display: inline-block;
+}
+
+/* Menu item hover glow */
+@keyframes menu-item-glow {
+  0%, 100% {
+    box-shadow: inset 0 0 5px #14FE1708;
+  }
+  50% {
+    box-shadow: inset 0 0 15px #14FE1715, 0 0 5px #14FE1710;
+  }
+}
+
+.menu-item-hover:hover {
+  animation: menu-item-glow 1.5s ease-in-out infinite;
+}
+
+/* Liquid shimmer effect for Nuka-Cola */
+@keyframes liquid-shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.liquid-shimmer {
+  background: linear-gradient(90deg, #14FE1705, #14FE1715, #14FE1705, #0B8C0D10, #14FE1705);
+  background-size: 200% 100%;
+  animation: liquid-shimmer 3s ease-in-out infinite;
+}
+
+/* Achievement badge styles */
+.achievement-badge {
+  position: relative;
+  overflow: hidden;
+}
+
+.achievement-badge::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, #14FE1710, transparent);
+  animation: achievement-shine 3s ease-in-out infinite;
+}
+
+/* Hacking success flash */
+@keyframes hack-success {
+  0% { background-color: #14FE1720; }
+  50% { background-color: #14FE1740; }
+  100% { background-color: transparent; }
+}
+
+.hack-success-flash {
+  animation: hack-success 0.5s ease-out;
+}
+
+/* Hacking fail shake */
+@keyframes hack-fail-shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-3px); }
+  40% { transform: translateX(3px); }
+  60% { transform: translateX(-2px); }
+  80% { transform: translateX(2px); }
+}
+
+.hack-fail-shake {
+  animation: hack-fail-shake 0.4s ease-out;
+}
+
+/* ========== ENHANCEMENT ROUND 6 ANIMATIONS ========== */
+
+/* Weather wind indicator */
+@keyframes weather-wind {
+  0%, 100% { transform: rotate(-15deg); }
+  50% { transform: rotate(15deg); }
+}
+
+.weather-wind {
+  animation: weather-wind 1.5s ease-in-out infinite;
+  display: inline-block;
+  transform-origin: center bottom;
+}
+
+/* Confetti fall with gravity */
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* Checklist checkmark bounce */
+@keyframes checklist-check {
+  0% { transform: scale(0); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+.checklist-bounce {
+  animation: checklist-check 0.3s ease-out;
+}
+
+/* Scroll to top button */
+.scroll-top-btn {
+  box-shadow: 0 0 8px #14FE1740;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.scroll-top-btn:hover {
+  box-shadow: 0 0 16px #14FE1780, 0 0 30px #14FE1740;
+  transform: translateY(-2px);
+}
+
+/* Nav active tab glow */
+@keyframes nav-glow-pulse {
+  0%, 100% {
+    box-shadow: 0 2px 8px #14FE1740;
+  }
+  50% {
+    box-shadow: 0 2px 16px #14FE1780, 0 4px 24px #14FE1740;
+  }
+}
+
+.nav-active-glow {
+  animation: nav-glow-pulse 2s ease-in-out infinite;
+}
+
+/* Nav active dot above icon */
+@keyframes nav-dot-pulse {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.4);
+  }
+}
+
+.nav-dot-active {
+  animation: nav-dot-pulse 1.5s ease-in-out infinite;
+}
+
+/* ========== STYLING IMPROVEMENT ROUND (Task 5b) ========== */
+
+/* Classified stamp rotation */
+.classified-stamp {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-family: monospace;
+  font-size: 10px;
+  color: #F1AC43;
+  opacity: 0.15;
+  transform: rotate(15deg);
+  letter-spacing: 0.2em;
+  font-weight: bold;
+  border: 2px solid #F1AC43;
+  padding: 2px 8px;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Card hover lift */
+.card-hover-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.card-hover-lift:hover {
+  transform: translateY(-1px);
+  border-color: #14FE1780;
+  box-shadow: 0 2px 8px #14FE1720;
+}
+
+/* Pulse glow for active gallery dot */
+.gallery-dot-active {
+  box-shadow: 0 0 4px #14FE17, 0 0 8px #14FE1740;
+  animation: gallery-dot-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes gallery-dot-pulse {
+  0%, 100% { box-shadow: 0 0 4px #14FE17, 0 0 8px #14FE1740; }
+  50% { box-shadow: 0 0 6px #14FE17, 0 0 12px #14FE1760; }
+}
+
+/* CRT top edge line */
+.crt-edge-line {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #14FE1740, #14FE17, #14FE1740, transparent);
+  z-index: 9999;
+  pointer-events: none;
+  animation: edge-line-glow 3s ease-in-out infinite;
+}
+
+@keyframes edge-line-glow {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* Dashed route line animation */
+.route-dash-animate {
+  background-image: repeating-linear-gradient(
+    0deg,
+    #14FE1740,
+    #14FE1740 4px,
+    transparent 4px,
+    transparent 8px
+  );
+  animation: route-dash-flow 1s linear infinite;
+}
+
+@keyframes route-dash-flow {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 8px; }
+}
+
+/* Input focus glow */
+.input-focus-glow:focus {
+  border-color: #14FE17 !important;
+  box-shadow: 0 0 8px #14FE1740, inset 0 0 4px #14FE1710;
+}
+
+/* Signal strength bars */
+.signal-bar {
+  display: inline-block;
+  width: 3px;
+  margin-right: 1px;
+  background: #14FE17;
+  vertical-align: bottom;
+}
+
+/* Footer shimmer text */
+.footer-shimmer {
+  background: linear-gradient(90deg, #0B8C0D, #14FE17, #0B8C0D);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: footer-shimmer 4s linear infinite;
+}
+
+@keyframes footer-shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Progress bar gradient */
+.progress-gradient {
+  background: linear-gradient(90deg, #0B8C0D, #14FE17, #14FE17);
+}
+
+/* Enhanced age glow - more dramatic pulse */
+@keyframes age-glow-dramatic {
+  0%, 100% {
+    text-shadow: 0 0 5px #14FE17, 0 0 10px #14FE17, 0 0 20px #14FE17;
+    transform: rotate(0deg) scale(1);
+  }
+  30% {
+    text-shadow: 0 0 15px #14FE17, 0 0 30px #14FE17, 0 0 60px #0B8C0D, 0 0 80px #14FE1740;
+    transform: rotate(-3deg) scale(1.08);
+  }
+  60% {
+    text-shadow: 0 0 8px #14FE17, 0 0 15px #14FE17, 0 0 30px #0B8C0D;
+    transform: rotate(0deg) scale(1.02);
+  }
+  80% {
+    text-shadow: 0 0 15px #14FE17, 0 0 30px #14FE17, 0 0 60px #0B8C0D, 0 0 80px #14FE1740;
+    transform: rotate(3deg) scale(1.08);
+  }
+}
+
+.age-glow-dramatic {
+  animation: age-glow-dramatic 2s ease-in-out infinite;
+  display: inline-block;
+}
+
+/* Gallery green overlay */
+.gallery-green-overlay {
+  position: absolute;
+  inset: 0;
+  background: #14FE1708;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Gallery caption scanline */
+.gallery-caption-scanline {
+  position: relative;
+  overflow: hidden;
+}
+.gallery-caption-scanline::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 1px,
+    #14FE1710 1px,
+    #14FE1710 2px
+  );
+  pointer-events: none;
+}
+
+/* Yandex maps button pulse */
+.yandex-pulse {
+  animation: yandex-pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes yandex-pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 #14FE1740; }
+  50% { box-shadow: 0 0 8px 2px #14FE1740; }
+}
+
+/* Chat diagonal lines background */
+.chat-diagonal-bg {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 10px,
+    #14FE1703 10px,
+    #14FE1703 11px
+  );
+}
+
+/* Countdown digit shadow glow */
+.countdown-digit-glow {
+  text-shadow: 0 0 5px #14FE17, 0 0 10px #14FE1780;
+}
+
+/* Vault-Tec watermark text */
+.vault-watermark {
+  font-family: monospace;
+  font-size: 7px;
+  color: #14FE17;
+  opacity: 0.06;
+  letter-spacing: 0.15em;
+  pointer-events: none;
+}
+
+/* Nav mode header for location */
+.nav-mode-header {
+  background: linear-gradient(90deg, #14FE1710, #14FE1720, #14FE1710);
+  animation: nav-mode-pulse 3s ease-in-out infinite;
+}
+
+@keyframes nav-mode-pulse {
+  0%, 100% { background-position: 0% 50%; opacity: 0.8; }
+  50% { background-position: 100% 50%; opacity: 1; }
+}
+
+/* Distance badge */
+.distance-badge {
+  border: 1px solid #14FE1730;
+  background: #0D1A0D;
+  animation: distance-blink 4s ease-in-out infinite;
+}
+
+@keyframes distance-blink {
+  0%, 90%, 100% { opacity: 1; }
+  95% { opacity: 0.7; }
+}
+
+/* ========== ENHANCEMENT ROUND 7 ANIMATIONS ========== */
+
+/* Holographic shimmer effect for invitation/resident cards */
+.holo-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.holo-shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    125deg,
+    transparent 0%,
+    transparent 30%,
+    #14FE1706 35%,
+    #4FC3F704 40%,
+    #F1AC4304 45%,
+    #14FE1706 50%,
+    transparent 55%,
+    transparent 100%
+  );
+  background-size: 250% 250%;
+  animation: holo-shimmer-move 6s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes holo-shimmer-move {
+  0% { background-position: 200% 200%; }
+  50% { background-position: -50% -50%; }
+  100% { background-position: 200% 200%; }
+}
+
+/* Clearance level number animation */
+.clearance-level-anim {
+  transition: all 0.5s ease-out;
+}
+
+/* Clearance bar fill animation */
+.clearance-bar-fill {
+  transition: width 0.7s ease-out, background-color 0.5s ease-out;
+}
+
+/* Skip button pulse animation (after 3 seconds) */
+.skip-btn-pulse {
+  animation: skip-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes skip-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 #14FE1700;
+    border-color: #14FE1740;
+  }
+  50% {
+    box-shadow: 0 0 8px 2px #14FE1740;
+    border-color: #14FE17;
+  }
+}
+
+/* Vault door widget pulse glow */
+.vault-door-pulse {
+  animation: vault-door-pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes vault-door-pulse-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 2px #14FE1720);
+  }
+  50% {
+    filter: drop-shadow(0 0 8px #14FE1760);
+  }
+}
+
+/* Footer vault door slow spin */
+.footer-vault-spin {
+  animation: footer-vault-spin 20s linear infinite;
+  display: inline-block;
+}
+
+@keyframes footer-vault-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Year 2077 glow animation */
+.year-2077-glow {
+  animation: year-2077-glow 3s ease-in-out infinite;
+  display: inline-block;
+}
+
+@keyframes year-2077-glow {
+  0%, 100% {
+    text-shadow: 0 0 3px #14FE1740;
+    color: #14FE17;
+  }
+  50% {
+    text-shadow: 0 0 8px #14FE1780, 0 0 15px #14FE1740;
+    color: #14FE17;
+  }
+}
+
+/* Signal bar animation in footer */
+.signal-bar-anim {
+  animation: signal-bar-pulse 2s ease-in-out infinite;
+}
+
+@keyframes signal-bar-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* ========== ENHANCEMENT ROUND 8 ANIMATIONS ========== */
+
+/* Encrypted screen pulsing border */
+.encrypted-pulse-border {
+  border: 2px solid #14FE17;
+  box-shadow: 0 0 5px #14FE1740, 0 0 10px #14FE1720;
+  animation: encrypted-pulse var(--pulse-speed, 2s) ease-in-out infinite;
+  position: relative;
+}
+
+@keyframes encrypted-pulse {
+  0%, 100% {
+    border-color: #14FE1740;
+    box-shadow: 0 0 5px #14FE1710, 0 0 10px #14FE1708;
+  }
+  50% {
+    border-color: #14FE17;
+    box-shadow: 0 0 15px #14FE1760, 0 0 25px #14FE1730;
+  }
+}
+
+/* Encrypted data stream character cycling */
+.encrypted-data-char {
+  animation: data-char-cycle 0.3s steps(1) infinite;
+}
+
+@keyframes data-char-cycle {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+/* Button tap feedback for mobile */
+.btn-tap-feedback:active {
+  transform: scale(0.98);
+  border-color: #14FE17;
+  transition: transform 0.1s ease, border-color 0.1s ease;
+}
+
+/* Pull-to-reveal refresh indicator */
+.pull-reveal-text {
+  animation: pull-reveal-fade 2s ease-in-out forwards;
+}
+
+@keyframes pull-reveal-fade {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  80% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+}
+
+/* Radiation icon pulse in event toast */
+.toast-radiation-pulse {
+  animation: toast-radiation-pulse 1.5s ease-in-out infinite;
+  display: inline-block;
+}
+
+/* ========== ENHANCEMENT ROUND 9 ANIMATIONS ========== */
+
+/* Title glitch effect - random shift with color split */
+.glitch-title {
+  position: relative;
+}
+
+@keyframes title-glitch {
+  0%, 95%, 100% {
+    transform: translate(0);
+    text-shadow: 0 0 5px #14FE17, 0 0 10px #14FE17;
+  }
+  96% {
+    transform: translate(-2px, 1px);
+    text-shadow: -2px 0 #FF3333, 2px 0 #14FE17, 0 0 5px #14FE17;
+  }
+  97% {
+    transform: translate(2px, -1px);
+    text-shadow: 2px 0 #14FE17, -2px 0 #FF3333, 0 0 8px #14FE17;
+  }
+  98% {
+    transform: translate(-1px, 0);
+    text-shadow: -1px 0 #FF3333, 1px 0 #14FE17, 0 0 5px #14FE17;
+  }
+  99% {
+    transform: translate(1px, 1px);
+    text-shadow: 1px 0 #14FE17, -1px 0 #FF3333, 0 0 8px #14FE17;
+  }
+}
+
+.glitch-title {
+  animation: title-glitch 18s step-end infinite;
+}
+
+/* Data stream background effect */
+.data-stream-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+.data-stream-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 18px,
+      #14FE1704 18px,
+      #14FE1704 19px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 30%,
+      #14FE1703 30%,
+      #14FE1703 31%,
+      transparent 31%
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 55%,
+      #14FE1702 55%,
+      #14FE1702 56%,
+      transparent 56%
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 78%,
+      #14FE1703 78%,
+      #14FE1703 79%,
+      transparent 79%
+    );
+  animation: data-stream-fall 8s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes data-stream-fall {
+  0% { background-position: 0 0, 0 0, 0 0, 0 0; }
+  100% { background-position: 0 19px, 0 -30px, 0 -20px, 0 -25px; }
+}
+
+/* Geiger counter needle wobble */
+@keyframes geiger-wobble {
+  0%, 100% { transform: rotate(-2deg); }
+  10% { transform: rotate(1.5deg); }
+  20% { transform: rotate(-1deg); }
+  30% { transform: rotate(2deg); }
+  40% { transform: rotate(-1.5deg); }
+  50% { transform: rotate(0.5deg); }
+  60% { transform: rotate(-2.5deg); }
+  70% { transform: rotate(1deg); }
+  80% { transform: rotate(-0.5deg); }
+  90% { transform: rotate(2.5deg); }
+}
+
+/* Geiger counter glow */
+.geiger-glow {
+  box-shadow: 0 0 8px #14FE1740, 0 0 16px #14FE1720, inset 0 0 8px #14FE1710;
+}
+
+/* Scroll progress bar glow */
+.scroll-progress-glow {
+  box-shadow: 0 0 4px #14FE17, 0 0 8px #14FE1780, 0 0 12px #14FE1740;
+}
+
+/* Konami code full-screen green flash */
+@keyframes konami-flash {
+  0% { opacity: 0; }
+  15% { opacity: 0.8; }
+  30% { opacity: 0.2; }
+  45% { opacity: 0.6; }
+  60% { opacity: 0.1; }
+  75% { opacity: 0.4; }
+  100% { opacity: 0; }
+}
+
+/* Enhanced focus-visible styles for interactive elements */
+*:focus-visible {
+  outline: 2px solid #14FE17;
+  outline-offset: 2px;
+  box-shadow: 0 0 4px #14FE1760;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #14FE17;
+  outline-offset: 2px;
+  box-shadow: 0 0 6px #14FE1780;
+}
+
+/* Custom CRT crosshair cursor for desktop */
+@media (pointer: fine) {
+  body {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cline x1='8' y1='0' x2='8' y2='5' stroke='%2314FE17' stroke-width='1'/%3E%3Cline x1='8' y1='11' x2='8' y2='16' stroke='%2314FE17' stroke-width='1'/%3E%3Cline x1='0' y1='8' x2='5' y2='8' stroke='%2314FE17' stroke-width='1'/%3E%3Cline x1='11' y1='8' x2='16' y2='8' stroke='%2314FE17' stroke-width='1'/%3E%3Ccircle cx='8' cy='8' r='2' fill='none' stroke='%2314FE17' stroke-width='0.5'/%3E%3C/svg%3E") 8 8, crosshair;
+  }
+
+  button,
+  a,
+  select,
+  input,
+  textarea,
+  [role="button"],
+  [tabindex] {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='M3 3h6l-2 2h2l-5 5v-2l-2 2z' fill='%2314FE17'/%3E%3Crect x='1' y='1' width='14' height='14' fill='none' stroke='%2314FE17' stroke-width='0.5' rx='1'/%3E%3C/svg%3E") 3 3, pointer;
+  }
+}
+
+@keyframes toast-radiation-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+
+/* ========== ENHANCEMENT ROUND 9 — New Features ========== */
+
+/* Scroll progress bar */
+.scroll-progress-glow {
+  box-shadow: 0 0 6px #14FE1780, 0 0 12px #14FE1740;
+  transition: width 0.15s ease-out;
+}
+
+/* Geiger counter needle wobble */
+@keyframes geiger-wobble {
+  0%, 100% { transform: rotate(-2deg); }
+  25% { transform: rotate(3deg); }
+  50% { transform: rotate(-1deg); }
+  75% { transform: rotate(2deg); }
+}
+
+.geiger-needle-wobble {
+  animation: geiger-wobble 0.8s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+.geiger-glow {
+  box-shadow: 0 0 8px #14FE1740, 0 0 16px #14FE1720, inset 0 0 8px #14FE1710;
+}
+
+/* Title glitch effect */
+@keyframes title-glitch {
+  0%, 95%, 100% {
+    transform: translate(0);
+    text-shadow: 0 0 5px #14FE17, 0 0 10px #14FE17, 0 0 20px #14FE17, 0 0 40px #0B8C0D;
+  }
+  96% {
+    transform: translate(-3px, 1px);
+    text-shadow: 2px 0 #FF0040, -2px 0 #14FE17;
+  }
+  97% {
+    transform: translate(2px, -1px);
+    text-shadow: -1px 0 #14FE17, 1px 0 #00FFFF;
+  }
+  98% {
+    transform: translate(-1px, 2px);
+    text-shadow: 1px 0 #FF0040, -1px 0 #14FE17;
+  }
+}
+
+.glitch-title {
+  animation: title-glitch 15s step-end infinite;
+}
+
+/* Data stream background effect */
+.data-stream-bg {
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 24px,
+      #14FE1702 24px,
+      #14FE1702 25px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 40px,
+      #14FE1702 40px,
+      #14FE1702 41px
+    );
+}
+
+/* Konami code flash */
+@keyframes konami-flash {
+  0% { opacity: 0; }
+  15% { opacity: 0.6; }
+  30% { opacity: 0.1; }
+  45% { opacity: 0.4; }
+  60% { opacity: 0.05; }
+  100% { opacity: 0; }
+}
+
+.konami-flash {
+  animation: konami-flash 1.5s ease-out forwards;
+}
+
+/* Custom CRT crosshair cursor for desktop */
+@media (pointer: fine) {
+  body {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cline x1='8' y1='0' x2='8' y2='6' stroke='%2314FE17' stroke-width='1'/%3E%3Cline x1='8' y1='10' x2='8' y2='16' stroke='%2314FE17' stroke-width='1'/%3E%3Cline x1='0' y1='8' x2='6' y2='8' stroke='%2314FE17' stroke-width='1'/%3E%3Cline x1='10' y1='8' x2='16' y2='8' stroke='%2314FE17' stroke-width='1'/%3E%3Ccircle cx='8' cy='8' r='2' fill='none' stroke='%2314FE17' stroke-width='0.5'/%3E%3C/svg%3E") 8 8, crosshair;
+  }
+  button, a, [role="button"], input, textarea, select, [tabindex] {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='M0 0 L5 5 L0 5 Z' fill='%2314FE17'/%3E%3Cpath d='M0 0 L0 5 L5 0 Z' fill='%2314FE1780'/%3E%3C/svg%3E") 0 0, pointer;
+  }
+}
+
+/* Better focus-visible styles */
+:focus-visible {
+  outline: 1px solid #14FE17;
+  outline-offset: 2px;
+  box-shadow: 0 0 4px #14FE1740;
+}
+
+/* Boot memory counter animation */
+@keyframes memory-count {
+  0% { opacity: 0.7; }
+  50% { opacity: 1; }
+  100% { opacity: 0.7; }
+}
+
+.memory-counting {
+  animation: memory-count 0.1s ease-in-out infinite;
+}
+
+/* Geiger click tick marks */
+.geiger-tick {
+  transition: all 0.3s ease;
+}
+
+/* ========== ENHANCEMENT ROUND 8 — Styling & Features ========== */
+
+/* CRT Curvature Effect on scanline overlay */
+.scanline-overlay {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.15) 0px,
+    rgba(0, 0, 0, 0.15) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  opacity: 0.15;
+  /* Subtle CRT barrel distortion */
+  border-radius: 8px / 6px;
+  box-shadow:
+    inset 0 0 60px rgba(0, 0, 0, 0.25),
+    inset 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Heading depth glow for important titles */
+.heading-depth-glow {
+  text-shadow:
+    0 0 4px #14FE1780,
+    0 0 8px #14FE1740,
+    0 0 16px #14FE1720,
+    0 0 2px #14FE17,
+    1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+/* Invitation card animated border glow */
+@keyframes invite-border-glow {
+  0%, 100% {
+    box-shadow:
+      0 0 0 2px #0A0A0A,
+      0 0 0 4px #14FE17,
+      0 0 12px rgba(20, 254, 23, 0.3),
+      0 0 24px rgba(20, 254, 23, 0.1),
+      inset 0 0 15px rgba(20, 254, 23, 0.15);
+  }
+  50% {
+    box-shadow:
+      0 0 0 2px #0A0A0A,
+      0 0 0 4px #14FE17,
+      0 0 18px rgba(20, 254, 23, 0.5),
+      0 0 36px rgba(20, 254, 23, 0.2),
+      inset 0 0 20px rgba(20, 254, 23, 0.2);
+  }
+}
+
+.invite-card-glow {
+  animation: invite-border-glow 3s ease-in-out infinite;
+}
+
+/* Countdown digit enhanced glow on mobile */
+@keyframes countdown-digit-pulse {
+  0%, 100% {
+    text-shadow:
+      0 0 4px #14FE17,
+      0 0 8px #14FE1780,
+      0 0 2px #14FE17;
+  }
+  50% {
+    text-shadow:
+      0 0 6px #14FE17,
+      0 0 12px #14FE1780,
+      0 0 20px #14FE1740,
+      0 0 2px #14FE17;
+  }
+}
+
+.countdown-digit-enhanced {
+  animation: countdown-digit-pulse 1.5s ease-in-out infinite;
+}
+
+/* Vault Boy section prominence */
+.vault-boy-prominent {
+  padding: 1.5rem 1rem;
+  position: relative;
+  background: radial-gradient(ellipse at center, #14FE1705 0%, transparent 70%);
+}
+
+/* Gallery swipe arrow indicators */
+.gallery-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0A0A0ACC;
+  border: 1px solid #14FE1740;
+  color: #14FE17;
+  font-size: 10px;
+  font-family: monospace;
+  transition: all 0.2s;
+  backdrop-filter: blur(4px);
+}
+
+.gallery-arrow:hover {
+  background: #0A0A0AE6;
+  border-color: #14FE17;
+  box-shadow: 0 0 8px #14FE1740;
+}
+
+.gallery-arrow-left {
+  left: 4px;
+}
+
+.gallery-arrow-right {
+  right: 4px;
+}
+
+/* Nav bar haptic feedback animation */
+@keyframes nav-haptic {
+  0% { transform: scale(1); }
+  20% { transform: scale(0.92); }
+  40% { transform: scale(1.04); }
+  60% { transform: scale(0.98); }
+  80% { transform: scale(1.01); }
+  100% { transform: scale(1); }
+}
+
+.nav-haptic-press {
+  animation: nav-haptic 0.35s ease-out;
+}
+
+/* Bottom News Ticker for main page */
+.bottom-ticker-container {
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid #14FE1720;
+  border-bottom: 1px solid #14FE1720;
+  background: #0A0A0A;
+}
+
+.bottom-ticker-content {
+  display: inline-block;
+  white-space: nowrap;
+  animation: ticker-scroll-slow 30s linear infinite;
+}
+
+@keyframes ticker-scroll-slow {
+  0% { transform: translateX(100vw); }
+  100% { transform: translateX(-100%); }
+}
+
+/* ASCII portrait enhancement */
+.ascii-portrait-frame {
+  position: relative;
+  background: #050505;
+  border: 1px solid #14FE1515;
+  padding: 0.5rem;
+}
+
+.ascii-portrait-frame::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #14FE1740, transparent);
+  animation: ascii-scan 3s linear infinite;
+}
+
+@keyframes ascii-scan {
+  0% { top: 0; opacity: 0.6; }
+  100% { top: 100%; opacity: 0; }
+}
+
+.ascii-class-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border: 1px solid #14FE17;
+  background: #0D1A0D;
+  animation: ascii-badge-glow 2s ease-in-out infinite;
+}
+
+@keyframes ascii-badge-glow {
+  0%, 100% { box-shadow: 0 0 4px #14FE1740; }
+  50% { box-shadow: 0 0 8px #14FE1780, 0 0 12px #14FE1740; }
+}
